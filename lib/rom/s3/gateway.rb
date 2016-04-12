@@ -47,16 +47,6 @@ module ROM
         @options = options
       end
 
-      # Return dataset with the given name
-      #
-      # @param name [String] dataset name
-      # @return [Dataset]
-      #
-      # @api public
-      def [](name)
-        s3_bucket(name)
-      end
-
       # Register a dataset in the gateway
       #
       # If dataset already exists it will be returned
@@ -69,6 +59,16 @@ module ROM
         dataset = ROM::S3::Dataset.new(s3_bucket(name))
         dataset.key_prefix = @options[:key_prefix] if @options[:key_prefix]
         dataset
+      end
+
+      # Return dataset with the given name
+      #
+      # @param name [String] dataset name
+      # @return [Dataset]
+      #
+      # @api public
+      def [](name)
+        dataset(name)
       end
 
       # Check if Amazon S3 bucket exists
