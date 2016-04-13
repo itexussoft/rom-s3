@@ -11,7 +11,7 @@ module ROM
         include CommandsHelper
 
         def execute(tuple)
-          obj = relation.dataset.object(set_key(tuple[:object_key]))
+          obj = relation.dataset.object(dataset.key_prefix + set_key(tuple[:entity_id], tuple[:entity_type])
           obj.put(body: tuple[:body])
         end
       end
