@@ -1,6 +1,5 @@
 require 'rom/commands'
 require 'rom/commands/update'
-require 'rom/s3/commands/commands_helper'
 
 module ROM
   module S3
@@ -8,10 +7,8 @@ module ROM
       class Update < ROM::Commands::Update
         adapter :s3
 
-        include CommandsHelper
-
         def execute(tuple)
-          obj = relation.dataset.object(dataset.key_prefix + set_key(tuple[:entity_id], tuple[:entity_type])
+          obj = relation.dataset.object("#{relation.dataset.key_prefix}/#{tuple[:entity_type]}/#{tuple[:entity_id]}" + tuple[:entity_extension].present? ? tuple[:entity_extension] : '.txt')
           obj.put(body: tuple[:body])
         end
       end

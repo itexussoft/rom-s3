@@ -8,7 +8,7 @@ module ROM
         adapter :s3
 
         def execute(tuple)
-          obj = relation.dataset.object(set_key(tuple[:object_key]))
+          obj = relation.dataset.object("#{relation.dataset.key_prefix}/#{tuple[:entity_type]}/#{tuple[:entity_id]}" + tuple[:entity_extension].present? ? tuple[:entity_extension] : '.txt')
           obj.delete()
         end
       end
