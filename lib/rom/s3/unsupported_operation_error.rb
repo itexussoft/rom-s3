@@ -1,7 +1,7 @@
 module ROM
   module S3
-    class UnsupportedOperationError < StandartError
-      
+    class UnsupportedOperationError < StandardError
+
     end
   end
 end
