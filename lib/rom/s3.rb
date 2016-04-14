@@ -1,6 +1,7 @@
 require 'rom'
 require 'rom/s3/version'
 require 'rom/s3/gateway'
+require 'rom/s3/dataset'
 require 'rom/s3/relation'
 require 'rom/s3/unsupported_operation_error'
 
