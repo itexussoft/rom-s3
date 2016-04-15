@@ -11,7 +11,6 @@ module ROM
           tuples.each do |tuple|
             entity_extension = set_extension(tuple[:entity_extension])
             obj = relation.dataset.object("#{relation.dataset.key_prefix}/#{tuple[:entity_type]}/#{tuple[:entity_id]}" + entity_extension)
-            puts "#{relation.dataset.key_prefix}/#{tuple[:entity_type]}/#{tuple[:entity_id]}" + entity_extension
             obj.put(body: tuple[:entity_body])
           end
         end
