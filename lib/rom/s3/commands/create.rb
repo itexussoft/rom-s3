@@ -9,9 +9,19 @@ module ROM
 
         def execute(tuples)
           tuples.each do |tuple|
-            obj = relation.dataset.object("#{relation.dataset.key_prefix}/#{tuple[:entity_type]}/#{tuple[:entity_id]}" + tuple[:entity_extension] && tuple[:entity_extension].size > 0 ? tuple[:entity_extension] : '.txt')
+            entity_extension = set_extension(tuple[:entity_extension])
+            obj = relation.dataset.object("#{relation.dataset.key_prefix}/#{tuple[:entity_type]}/#{tuple[:entity_id]}" + entity_extension)
+            puts "#{relation.dataset.key_prefix}/#{tuple[:entity_type]}/#{tuple[:entity_id]}" + entity_extension
             obj.put(body: tuple[:entity_body])
           end
+        end
+
+        def set_extension(extension)
+          ext = '.txt'
+          if extension && extension.size > 0
+            ext = extension
+          end
+          ext
         end
       end
     end
