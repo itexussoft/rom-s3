@@ -8,10 +8,12 @@ module ROM
         adapter :s3
 
         def execute(tuples)
-          tuples.each do |tuple|
+          tuples.map do |tuple|
             entity_extension = set_extension(tuple[:entity_extension])
-            obj = relation.dataset.object("#{relation.dataset.key_prefix}/#{tuple[:entity_type]}/#{tuple[:entity_id]}" + entity_extension)
+            object_name = "#{relation.dataset.key_prefix}/#{tuple[:entity_type]}/#{tuple[:entity_id]}" + entity_extension
+            obj = relation.dataset.object(object_name)
             obj.put(body: tuple[:entity_body])
+            object_name
           end
         end
 
